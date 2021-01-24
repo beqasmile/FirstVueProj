@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        
+        <div id="app">
+            <h1>{{myWelcomeMessage}}</h1>
+            {{message}}
+            <p v-if='showilya'>{{myname}}</p>
+            <ul>
+                <li v-for='todo in todos'>{{todo.text}}</li>
+            </ul>
+            <button v-on:click="reverseMessage">Reverse Message</button>
+            <input v-model='message'>
+        </div>
+        <script>
+            var app = new Vue({ 
+                    el: '#app',
+                    data: {
+                        myWelcomeMessage: 'Hello World',
+                        message: 'Hello Vue! ' +  new Date().toLocaleString(),
+                        myname: 'ilya',
+                        showilya: false,
+                        todos: [
+                            {
+                                text: 'one'
+                            },
+                            {
+                                text: 'two'
+                            },
+                            {
+                                text: 'three'
+                            },
+                            {
+                                text: 'four'
+                            },
+                        ]
+                    },
+                    methods :{
+                        reverseMessage: function () {
+                            this.message=this.message.split('').reverse().join('');
+
+                            this.myWelcomeMessage = this.myWelcomeMessage + (this.message);
+                        }
+                    }
+                });
+        </script>
+    </body>
+
+</html>

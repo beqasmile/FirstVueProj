@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <label>first Num</label>
+            |<input v-model='firstNum'>
+            <br/>
+            <label>second Num</label>
+            <input v-model='secondNum'>
+            <h1>{{firstNum}} + {{secondNum}} = {{parseInt(this.firstNum) + parseInt(this.secondNum)}}</h1>
+            <button v-on:click='addClick'>Add Button</button>
+            
+        </div>
+
+        <script>
+            var app = new Vue({ 
+                    el: '#app',
+                    data: 
+                    {
+                        firstNum: 0,
+                        secondNum : 0,
+                        result : 0
+                    },
+                    methods:
+                    {
+                        addClick : function(){
+                            this.result = parseInt(this.firstNum) + parseInt(this.secondNum);
+                        }
+                    }
+                })
+
+        </script>
+    </body>
+</html>
