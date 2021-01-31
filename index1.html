@@ -5,16 +5,31 @@
     <body>
         
         <div id="app">
+
+          
+
             <h1>{{myWelcomeMessage}}</h1>
             {{message}}
             <p v-if='showilya'>{{myname}}</p>
             <ul>
-                <li v-for='todo in todos'>{{todo.text}}</li>
+               <todo-item v-for="item in todos"
+               v-bind:todo="item"
+               v-bind:key="item.id">
+                   
+               </todo-item>
             </ul>
             <button v-on:click="reverseMessage">Reverse Message</button>
             <input v-model='message'>
+            
         </div>
         <script>
+           
+
+              Vue.component('todo-item', {
+                    template: '<li>{{ todo.id }} {{ todo.text }}</li>',
+                    props: ['todo'],
+
+                    })
             var app = new Vue({ 
                     el: '#app',
                     data: {
@@ -24,15 +39,19 @@
                         showilya: false,
                         todos: [
                             {
+                                id: 0, 
                                 text: 'one'
                             },
                             {
+                                id:1, 
                                 text: 'two'
                             },
                             {
+                                id: 2, 
                                 text: 'three'
                             },
                             {
+                                id: 3, 
                                 text: 'four'
                             },
                         ]
