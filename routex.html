@@ -9,6 +9,8 @@
 
             <router-link to="/foo">Go to Foo</router-link>
             <router-link to="/bar">Go to Bar</router-link>
+            <router-link to="/user/profile">Go to User And nested Profile</router-link>
+            <router-link to="/user/posts">Go to User And nested Posts</router-link>
            
             <router-view></router-view>
 
@@ -19,19 +21,65 @@
              const Foo = { template: '<div>foo</div>' }
             const Bar = { template: '<div>bar</div>' }
 
+
+            const UserProfile = { template: '<div>UserProfile</div>' }
+            const UserPosts = { template: '<div>UserPosts</div>' }
+
             const User = {
-                template: '<div>User number {{ $route.params.id }}</div>'
+                    template: `
+                        <div class="user">
+                        <h3>---------Header-------------</h3>
+                        <h2>User Page {{ $route.params.id }}</h2>
+                        <br></br>
+                        <router-view></router-view>
+                        <br></br>
+                        <h3>---------Footer--------------</h3>
+                        </div>
+                    `
             }
-            
-            const routes = 
-            [
-                { path: '/foo', component: Foo },
-                { path: '/bar', component: Bar },
-                { path: '/user/:id', component: User }
-            ]
             const router = new VueRouter({
-                routes // short for `routes: routes`
-                })
+                routes: [
+                    { path: '/foo', component: Foo },
+                    { path: '/bar', component: Bar },
+                    { path: '/user/:id', component: User,
+                            children: [
+                                {
+                                // UserProfile will be rendered inside User's <router-view>
+                                // when /user/:id/profile is matched
+                                path: 'profile',
+                                component: UserProfile
+                                },
+                                {
+                                // UserPosts will be rendered inside User's <router-view>
+                                // when /user/:id/posts is matched
+                                path: 'posts',
+                                component: UserPosts
+                                }
+                            ]
+                    }
+                ]
+            })
+
+           
+            
+
+            // object
+            router.push({ path: 'foo' })
+
+           
+            // named route
+            router.push({ path: 'user', params: {path: 'posts' } })
+            router.push({ path: 'user', params: {path: 'profile' } })
+
+            router.go(-3);
+
+            router.go(+2);
+          
+            // router.push({ name: 'user', params: {path: 'posts' } })
+            // with query, resulting in /register?plan=private
+            //router.push({ path: 'register', query: { plan: 'private' } })
+
+          
 
            
 
