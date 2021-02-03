@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     </head>
     <body>
         
@@ -11,6 +12,7 @@
             <h1>{{myWelcomeMessage}}</h1>
             {{message}}
             <p v-if='showilya'>{{myname}}</p>
+            <p>{{myNumber}}</p>
             <ul>
                <todo-item v-for="item in todos"
                v-bind:todo="item"
@@ -54,14 +56,19 @@
                                 id: 3, 
                                 text: 'four'
                             },
-                        ]
+                        ],
+                        myNumber : 0
                     },
                     methods :{
                         reverseMessage: function () {
                             this.message=this.message.split('').reverse().join('');
 
                             this.myWelcomeMessage = this.myWelcomeMessage + (this.message);
+                        },
+                        updateNumber: function ()  {
+                            this.myNumber ++;
                         }
+
                     }
                 });
         </script>
